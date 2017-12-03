@@ -1,15 +1,20 @@
 package org.ehcache.spring.boot;
 
 
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ResourceCondition;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerUtils;
+import org.springframework.cache.ehcache3.EhCacheCacheManager;
+import org.springframework.cache.ehcache3.EhCacheManagerUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
+
 
 /**
  * EhCache cache configuration. Only kick in if a configuration file location is set or if
@@ -23,14 +28,14 @@ import org.springframework.core.io.Resource;
 @ConditionalOnClass({ Cache.class, EhCacheCacheManager.class })
 @ConditionalOnMissingBean(org.springframework.cache.CacheManager.class)
 @Conditional({ CacheCondition.class,
-		EhCacheCacheConfiguration.ConfigAvailableCondition.class })
+	EhCache3CacheConfiguration.ConfigAvailableCondition.class })
 public class EhCache3CacheConfiguration {
 
 	private final CacheProperties cacheProperties;
 
 	private final CacheManagerCustomizers customizers;
 
-	EhCacheCacheConfiguration(CacheProperties cacheProperties,
+	EhCache3CacheConfiguration(CacheProperties cacheProperties,
 			CacheManagerCustomizers customizers) {
 		this.cacheProperties = cacheProperties;
 		this.customizers = customizers;

@@ -6,16 +6,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.8.RELEASE</version>
+		<version>1.5.9.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+	<groupId>com.github.vindell</groupId>
 	<artifactId>spring-boot-starter-ehcache3</artifactId>
+	<version>1.5.9-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-boot-starter-ehcache3</name>
-	<url></url>
-	<description>starter for cas client</description>
+	<url>https://github.com/vindell/spring-boot-starter-ehcache3</url>
+	<description>starter for ehcache3</description>
 
 	<licenses>
 		<license>
@@ -24,6 +26,12 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+
+	<scm>
+		<url>https://github.com/vindell/spring-boot-starter-ehcache3</url>
+		<connection>scm:git:git://github.com/vindell/spring-boot-starter-ehcache3.git</connection>
+		<developerConnection>scm:git:git@github.com/vindell/spring-boot-starter-ehcache3.git</developerConnection>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,9 +55,9 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <scope>test</scope>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Core starter, including auto-configuration support, logging and YAML -->
@@ -80,59 +88,45 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
-		
-		<!-- 
-			EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。Ehcache是一种广泛使用的开 源Java分布式缓存。
-			主要面向通用缓存,Java EE和轻量级容器。它具有内存和磁盘存储，缓存加载器,缓存扩展，缓存异常处理程序，一个gzip缓存servlet过滤器，支持REST和SOAP api等特点。
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
 
-			优点：
-			1. 快速
-			2. 简单
-			3. 多种缓存策略
-			4. 缓存数据有两级：内存和磁盘，因此无需担心容量问题
-			5. 缓存数据会在虚拟机重启的过程中写入磁盘
-			6. 可以通过RMI、可插入API等方式进行分布式缓存
-			7. 具有缓存和缓存管理器的侦听接口
-			8. 支持多缓存管理器实例，以及一个实例的多个缓存区域
-			9. 提供Hibernate的缓存实现
-			
-			缺点：
-			1. 使用磁盘Cache的时候非常占用磁盘空间：这是因为DiskCache的算法简单，该算法简单也导致Cache的效率非常高。它只是对元素直接追加存储。因此搜索元素的时候非常的快。如果使用DiskCache的，在很频繁的应用中，很快磁盘会满。
-			2. 不能保证数据的安全：当突然kill掉java的时候，可能会产生冲突，EhCache的解决方法是如果文件冲突了，则重建cache。这对于Cache 数据需要保存的时候可能不利。当然，Cache只是简单的加速，而不能保证数据的安全。如果想保证数据的存储安全，可以使用Bekeley DB Java Edition版本。这是个嵌入式数据库。可以确保存储安全和空间的利用率。
-			
-			EhCache的分布式缓存有传统的RMI，1.5版的JGroups，1.6版的JMS。分布式缓存主要解决集群环境中不同的服务器间的数据的同步问题。
-			
-		-->
-		 
-		<!-- 
-			Ehcache 3.x
-			http://blog.csdn.net/liaodehong/article/details/51774403
-			http://blog.csdn.net/liaodehong/article/details/51775491
-		 -->
-		
+		<!-- EhCache 是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider。Ehcache是一种广泛使用的开 
+			源Java分布式缓存。 主要面向通用缓存,Java EE和轻量级容器。它具有内存和磁盘存储，缓存加载器,缓存扩展，缓存异常处理程序，一个gzip缓存servlet过滤器，支持REST和SOAP 
+			api等特点。 优点： 1. 快速 2. 简单 3. 多种缓存策略 4. 缓存数据有两级：内存和磁盘，因此无需担心容量问题 5. 缓存数据会在虚拟机重启的过程中写入磁盘 
+			6. 可以通过RMI、可插入API等方式进行分布式缓存 7. 具有缓存和缓存管理器的侦听接口 8. 支持多缓存管理器实例，以及一个实例的多个缓存区域 
+			9. 提供Hibernate的缓存实现 缺点： 1. 使用磁盘Cache的时候非常占用磁盘空间：这是因为DiskCache的算法简单，该算法简单也导致Cache的效率非常高。它只是对元素直接追加存储。因此搜索元素的时候非常的快。如果使用DiskCache的，在很频繁的应用中，很快磁盘会满。 
+			2. 不能保证数据的安全：当突然kill掉java的时候，可能会产生冲突，EhCache的解决方法是如果文件冲突了，则重建cache。这对于Cache 
+			数据需要保存的时候可能不利。当然，Cache只是简单的加速，而不能保证数据的安全。如果想保证数据的存储安全，可以使用Bekeley DB Java 
+			Edition版本。这是个嵌入式数据库。可以确保存储安全和空间的利用率。 EhCache的分布式缓存有传统的RMI，1.5版的JGroups，1.6版的JMS。分布式缓存主要解决集群环境中不同的服务器间的数据的同步问题。 -->
+
+		<!-- Ehcache 3.x http://blog.csdn.net/liaodehong/article/details/51774403 
+			http://blog.csdn.net/liaodehong/article/details/51775491 -->
+
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache-clustered</artifactId>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache-clustered</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache-transactions</artifactId>
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache-transactions</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>sizeof</artifactId>
-		    <version>0.3.0</version>
+			<groupId>org.ehcache</groupId>
+			<artifactId>sizeof</artifactId>
+			<version>0.3.0</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>jcache</artifactId>
-		    <version>1.0.1</version>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
 		</dependency>
-		
+
 		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-lang3</artifactId> 
 			<version>3.6</version> </dependency> -->
 

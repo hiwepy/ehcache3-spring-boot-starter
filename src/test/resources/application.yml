@@ -10,4 +10,7 @@ server:
     key-alias: tomcat
   port: 8080
 spring:  
+ cache:
+    jcache:
+      config: classpath:ehcache.xml
         
