@@ -9,6 +9,10 @@ ehcache3 starter for spring boot
 1. 整合ehcache3
 2. http://www.ehcache.org/blog/2016/05/18/ehcache3_jsr107_spring.html
 
+Ehcache 3.x 
+http://blog.csdn.net/liaodehong/article/details/51774403
+http://blog.csdn.net/liaodehong/article/details/51775491
+
 ### Maven
 
 ``` xml
