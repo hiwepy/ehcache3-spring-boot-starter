@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ResourceCondition;
-import org.springframework.cache.ehcache3.EhCacheCacheManager;
-import org.springframework.cache.ehcache3.EhCacheManagerUtils;
+import org.springframework.cache.ehcache3.EhCache3CacheManager;
+import org.springframework.cache.ehcache3.EhCache3ManagerUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,7 @@ import org.springframework.core.io.Resource;
  * @since 1.3.0
  */
 @Configuration
-@ConditionalOnClass({ Cache.class, EhCacheCacheManager.class })
+@ConditionalOnClass({ Cache.class, EhCache3CacheManager.class })
 @ConditionalOnMissingBean(org.springframework.cache.CacheManager.class)
 @Conditional({ CacheCondition.class,
 	EhCache3CacheConfiguration.ConfigAvailableCondition.class })
@@ -42,8 +42,8 @@ public class EhCache3CacheConfiguration {
 	}
 
 	@Bean
-	public EhCacheCacheManager cacheManager(CacheManager ehCacheCacheManager) {
-		return this.customizers.customize(new EhCacheCacheManager(ehCacheCacheManager));
+	public EhCache3CacheManager cacheManager(CacheManager ehCacheCacheManager) {
+		return this.customizers.customize(new EhCache3CacheManager(ehCacheCacheManager));
 	}
 
 	@Bean
@@ -52,9 +52,9 @@ public class EhCache3CacheConfiguration {
 		Resource location = this.cacheProperties
 				.resolveConfigLocation(this.cacheProperties.getEhcache().getConfig());
 		if (location != null) {
-			return EhCacheManagerUtils.buildCacheManager(location);
+			return EhCache3ManagerUtils.buildCacheManager(location);
 		}
-		return EhCacheManagerUtils.buildCacheManager();
+		return EhCache3ManagerUtils.buildCacheManager();
 	}
 
 	/**
