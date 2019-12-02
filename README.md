@@ -1,5 +1,5 @@
-# spring-boot-starter-ehcache3
-ehcache3 starter for spring boot
+# ehcache3-spring-boot-starter
+Spring Boot Starter For Ehcache 3.x
 
 ### 说明
 
